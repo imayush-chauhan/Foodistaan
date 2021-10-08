@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'bufferScreenFile.dart';
 import 'loginScreenFile.dart';
-import 'mainScreenFile.dart';
+import 'MainScreenFolder/mainScreenFile.dart';
 import 'optionScreenFile.dart';
+import 'package:flutter/cupertino.dart';
+
 
 void main() {
   runApp(MaterialApp(
