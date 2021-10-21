@@ -61,7 +61,14 @@ class _MainScreenState extends State<MainScreen> {
         child: MainScreenAppBar(),
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(child: Screens[currentIndex]),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("Images/BgSmiley.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Screens[currentIndex]),
     );
   }
 }

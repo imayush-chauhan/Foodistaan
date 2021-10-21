@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Location extends StatefulWidget {
   @override
   _LocationState createState() => _LocationState();
@@ -56,16 +57,20 @@ class _PointsState extends State<Points> {
 
 class Search extends StatefulWidget {
   @override
-  _SearchState createState() => _SearchState();
+  Function searchTask;
+  Search({@required this.searchTask});
+  _SearchState createState() => _SearchState(SearchTask: searchTask);
 }
 
 class _SearchState extends State<Search> {
   @override
+  Function SearchTask;
+  _SearchState({@required this.SearchTask});
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
-    return TextButton(
-      onPressed: (){},
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -73,23 +78,30 @@ class _SearchState extends State<Search> {
         ),
         height: h1/15,
         width: 12*w1/13,
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
 
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: Row(
-            children: [
-              Icon(
-                Icons.search,
-                color: Color(0xFF6B6B6B),
+        child: GestureDetector(
+          onTap: SearchTask,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Color(0xFF6B6B6B),
+                  ),
+                  SizedBox(width: w1/30,),
+                  Text(
+                    "Search Cuisines",
+                    style: TextStyle(
+                      color: Color(0xFF6B6B6B),
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                "Search",
-                style: TextStyle(
-                  color: Color(0xFF6B6B6B),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

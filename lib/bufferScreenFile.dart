@@ -4,12 +4,10 @@ import 'package:flutter/widgets.dart';
 class BufferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Center(
         child: Text(
           "FOODISTAAN"
         )
-      )
-    );
+      );
   }
 }

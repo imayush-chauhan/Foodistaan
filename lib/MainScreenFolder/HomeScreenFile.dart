@@ -5,13 +5,16 @@ import 'CategoryTile.dart';
 import 'CuisineTile.dart';
 import 'ListingsFile.dart';
 
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-class HomeScreen extends StatelessWidget {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
-
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -22,15 +25,27 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding:
                 EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
-                child: FoodCategories(
-                    ImagePath: 'Images/food-trolley.png',
-                    Caption: 'Street Style'),
+                child: GestureDetector(
+                  onTap:()async{
+                    await fetchData();
+                    setState(() {});
+                  },
+                  child: FoodCategories(
+                      ImagePath: 'Images/food-trolley.png',
+                      Caption: 'Street Style'),
+                ),
               ),
               Padding(
                 padding:
                 EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
-                child: FoodCategories(
-                    ImagePath: 'Images/tiffin.png', Caption: 'Tiffin Services'),
+                child: GestureDetector(
+                  onTap:()async{
+                    await fetchData();
+                    setState(() {});
+                  },
+                  child: FoodCategories(
+                      ImagePath: 'Images/tiffin.png', Caption: 'Tiffin Services'),
+                ),
               )
             ],
           ),
@@ -46,3 +61,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+

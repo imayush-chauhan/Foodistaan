@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'LocationPointsSearch.dart';
+import 'SearchScreenFile.dart';
 
 class MainScreenAppBar extends StatelessWidget {
 
@@ -26,7 +27,9 @@ class MainScreenAppBar extends StatelessWidget {
           ),
         ),
       ),
-      Search(),
+      Search(searchTask: () {
+        showSearch(context: context, delegate: RestaurantSearch());
+      },),
     ]);
   }
 }
