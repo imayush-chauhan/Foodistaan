@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'Crousel.dart';
@@ -11,11 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

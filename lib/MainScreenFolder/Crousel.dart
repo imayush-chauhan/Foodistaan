@@ -31,7 +31,7 @@ class OfferSlider extends StatelessWidget {
 
 class Offers extends StatelessWidget {
   String offerImagePath = "";
-  Offers({@required this.offerImagePath});
+  Offers({required this.offerImagePath});
 
   @override
   Widget build(BuildContext context) {

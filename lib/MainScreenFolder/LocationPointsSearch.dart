@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Location extends StatefulWidget {
   @override
   _LocationState createState() => _LocationState();
@@ -57,15 +56,15 @@ class _PointsState extends State<Points> {
 
 class Search extends StatefulWidget {
   @override
-  Function searchTask;
-  Search({@required this.searchTask});
-  _SearchState createState() => _SearchState(SearchTask: searchTask);
+  Function? searchTask;
+  Search({required this.searchTask});
+  _SearchState createState() => _SearchState(SearchTask: searchTask!);
 }
 
 class _SearchState extends State<Search> {
   @override
   Function SearchTask;
-  _SearchState({@required this.SearchTask});
+  _SearchState({required this.SearchTask});
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
@@ -81,7 +80,9 @@ class _SearchState extends State<Search> {
         alignment: Alignment.centerLeft,
 
         child: GestureDetector(
-          onTap: SearchTask,
+          onTap: (){
+            SearchTask();
+          },
           child: FittedBox(
             fit: BoxFit.contain,
             child: Padding(

@@ -31,7 +31,7 @@ class myhomescreen extends StatelessWidget {
 class country extends StatelessWidget {
   String page;
   String url;
-  country({@required this.page, @required this.url});
+  country({required this.page, required this.url});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Filter extends StatelessWidget {
   List Info;
-  Filter({@required this.Info});
+  Filter({required this.Info});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class Filter extends StatelessWidget {
 
 class FilterTypes extends StatelessWidget {
   List OptionsSelected;
-  FilterTypes({@required this.OptionsSelected});
+  FilterTypes({required this.OptionsSelected});
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -33,14 +33,14 @@ class FilterTypes extends StatelessWidget {
 
 class VegNonveg extends StatefulWidget {
   List OS;
-  VegNonveg({@required this.OS});
+  VegNonveg({required this.OS});
   @override
   _VegNonvegState createState() => _VegNonvegState(OptionsSelected:OS);
 }
 
 class _VegNonvegState extends State<VegNonveg> {
   List OptionsSelected;
-  _VegNonvegState({@required this.OptionsSelected});
+  _VegNonvegState({required this.OptionsSelected});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -79,14 +79,14 @@ class _VegNonvegState extends State<VegNonveg> {
 
 class Rating extends StatefulWidget {
   List OS;
-  Rating({@required this.OS});
+  Rating({required this.OS});
   @override
   _RatingState createState() => _RatingState(OptionsSelected:OS);
 }
 
 class _RatingState extends State<Rating> {
   List OptionsSelected;
-  _RatingState({@required this.OptionsSelected});
+  _RatingState({required this.OptionsSelected});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -131,14 +131,14 @@ class _RatingState extends State<Rating> {
 
 class PriceRange extends StatefulWidget {
   List OS;
-  PriceRange({@required this.OS});
+  PriceRange({required this.OS});
   @override
   _PriceRangeState createState() => _PriceRangeState(OptionsSelected:OS);
 }
 
 class _PriceRangeState extends State<PriceRange> {
   List OptionsSelected;
-  _PriceRangeState({@required this.OptionsSelected});
+  _PriceRangeState({required this.OptionsSelected});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,13 +172,13 @@ class _PriceRangeState extends State<PriceRange> {
 class Sorting extends StatefulWidget {
   @override
   List OS;
-  Sorting({@required this.OS});
+  Sorting({required this.OS});
   _SortingState createState() => _SortingState(OptionsSelected:OS);
 }
 
 class _SortingState extends State<Sorting> {
   List OptionsSelected;
-  _SortingState({@required this.OptionsSelected});
+  _SortingState({required this.OptionsSelected});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -227,7 +227,7 @@ class SortOrder extends StatelessWidget {
   List os;
   int n;
   String t;
-  SortOrder({@required this.os,@required this.n,@required this.t});
+  SortOrder({required this.os,required this.n,required this.t});
   @override
   Widget build(BuildContext context) {
     return ListTile(

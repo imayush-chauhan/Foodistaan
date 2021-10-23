@@ -5,7 +5,7 @@ import 'ListingsFile.dart';
 class FoodCategories extends StatefulWidget {
   String ImagePath = "";
   String Caption = "";
-  FoodCategories({@required this.ImagePath, @required this.Caption});
+  FoodCategories({required this.ImagePath, required this.Caption});
   @override
   _FoodCategoriesState createState() =>
       _FoodCategoriesState(ImagePath: ImagePath, Caption: Caption);
@@ -14,7 +14,7 @@ class FoodCategories extends StatefulWidget {
 class _FoodCategoriesState extends State<FoodCategories> {
   String ImagePath = "";
   String Caption = "";
-  _FoodCategoriesState({@required this.ImagePath, @required this.Caption});
+  _FoodCategoriesState({required this.ImagePath, required this.Caption});
   @override
 
   Widget build(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:foodistan/profile/foodistaan_pro.dart';
+import 'package:foodistan/profile/user_profile.dart';
 import 'AppBarFile.dart';
 import 'Test.dart';
 import 'HomeScreenFile.dart';
@@ -17,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(), //HomeScreenFile
     BufferScreen(),
     BufferScreen(),
-    BufferScreen(),
+    UserProfile(),
   ];
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
@@ -56,10 +58,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(h1 / 7), // here the desired height
+      appBar: currentIndex == 0 ? PreferredSize(
+        preferredSize: Size.fromHeight(h1 / 6.8), // here the desired height
         child: MainScreenAppBar(),
-      ),
+      ) : null,
       backgroundColor: Colors.white,
       body: Container(
           decoration: BoxDecoration(

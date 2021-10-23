@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class CuisineTileList extends StatelessWidget {
-  @override
 
   List CuisineTiles=[
     Cuisines(Text1: "Burger", Text2: "BOMB", FoodImage: 'Images/burger.png',BorderColor: const Color(0xFFF03636),BgColor: const Color(0xFFFFE7E7),),
@@ -16,13 +14,14 @@ class CuisineTileList extends StatelessWidget {
 
   ];
 
+  @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
     return Container(
       height: h1 / 6,
       child: ListView.builder(
-        physics: ClampingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: CuisineTiles.length,
@@ -47,11 +46,11 @@ class Cuisines extends StatelessWidget {
 
 
   Cuisines(
-      {@required this.Text1,
-      @required this.Text2,
-      @required this.FoodImage,
-      @required this.BorderColor,
-      @required this.BgColor,
+      {required this.Text1,
+      required this.Text2,
+      required this.FoodImage,
+      required this.BorderColor,
+      required this.BgColor,
       });
 
   @override

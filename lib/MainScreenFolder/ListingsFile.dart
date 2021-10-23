@@ -86,7 +86,7 @@ class _ListedTileState extends State<ListedTile> {
 class leftSide extends StatelessWidget {
   String foodImage;
   String address;
-  leftSide({this.foodImage,this.address});
+  leftSide({required this.foodImage,required this.address});
   @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
@@ -100,7 +100,7 @@ class leftSide extends StatelessWidget {
         color: Color(0xffE43B3B),
       ),
       height: h1 / 5,
-      width: 3 * w1 / 5,
+      width: w1*0.5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -150,7 +150,7 @@ class rightSide extends StatelessWidget {
   bool takeaway;
   bool foodistaanCertified;
 
-  rightSide({this.name,this.cuisines,this.stars,this.cost,this.delivery,this.takeaway,this.foodistaanCertified});
+  rightSide({required this.name,required this.cuisines,required this.stars,required this.cost,required this.delivery,required this.takeaway,required this.foodistaanCertified});
   @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
@@ -159,7 +159,7 @@ class rightSide extends StatelessWidget {
       children: [
         Container(
           height: 10 * h1 / 62,
-          width: w1 / 3,
+          width: w1*0.4,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(7.0),
@@ -187,7 +187,7 @@ class rightSide extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
-                          fontSize: h1 / 55),
+                          fontSize: h1 / 55,),
                     )),
                 FittedBox(
                   fit: BoxFit.contain,
@@ -269,7 +269,7 @@ class rightSide extends StatelessWidget {
         ),
         Container(
           height: h1 / 26,
-          width: w1 / 3,
+          width: w1*0.4,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(7.0),
