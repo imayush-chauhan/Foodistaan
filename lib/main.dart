@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodistan/restuarant_screens/restaurant_delivery.dart';
 import 'bufferScreenFile.dart';
 import 'login/mobile number.dart';
 import 'loginScreenFile.dart';
@@ -14,13 +15,13 @@ void main() async {
   runApp(MaterialApp(
     initialRoute: FirebaseAuth.instance.currentUser?.uid != null ? 'H' : 'LO',
     routes: {
-      'B':(context)=>BufferScreen(),
-      'L':(context)=>LoginScreen(),
-      'H':(context)=>MainScreen(),
-      'O':(context)=>OptionScreen(),
-      'LO':(context)=>Login(),
+      'B': (context) => BufferScreen(),
+      'L': (context) => LoginScreen(),
+      'H': (context) => MainScreen(),
+      'O': (context) => OptionScreen(),
+      'LO': (context) => Login(),
+      'R': (context) => RestaurantDelivery(),
     },
     debugShowCheckedModeBanner: false,
   ));
 }
-
