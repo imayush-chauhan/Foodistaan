@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodistan/cart_screens/address_pay_cart_screen_main.dart';
 import 'package:foodistan/restuarant_screens/restaurant_delivery.dart';
 import 'bufferScreenFile.dart';
 import 'login/mobile number.dart';
@@ -21,6 +22,7 @@ void main() async {
       'O': (context) => OptionScreen(),
       'LO': (context) => Login(),
       'R': (context) => RestaurantDelivery(),
+      'C': (context) => CartScreenMainLogin(),
     },
     debugShowCheckedModeBanner: false,
   ));
