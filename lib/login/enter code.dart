@@ -70,7 +70,7 @@ class _EnterCodeState extends State<EnterCode> {
         setState(() {
           verificationCode = verificationID;
           print(verificationCode);
-        });
+        }); 
       },
       timeout: Duration(seconds: 60),
     );
@@ -91,16 +91,7 @@ class _EnterCodeState extends State<EnterCode> {
             FirebaseFirestore.instance.
             collection("users").doc("+91${widget.number}").set({
               "number": widget.number,
-              // "name": Data.studentName,
-              // "time": DateTime.now(),
-              // "number": Data.studentNumber,
-              // "email": Data.studentEmail,
-              // "address": Data.studentAddress,
-              // "class": Data.studentClass,
-              // "board": Data.studentBoard,
-              // "stream": Data.studentStream,
-              // "target": Data.studentTarget,
-              // "verification": true,
+             
             }).then((value) {
               setState(() {
                 loading = false;

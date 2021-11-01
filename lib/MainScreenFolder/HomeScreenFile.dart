@@ -14,12 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var h1 = MediaQuery.of(context).size.height;
     var w1 = MediaQuery.of(context).size.width;
@@ -33,9 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding:
-                EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
+                    EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
                 child: GestureDetector(
-                  onTap:()async{
+                  onTap: () async {
                     await fetchData();
                     setState(() {});
                   },
@@ -46,14 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding:
-                EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
+                    EdgeInsets.fromLTRB(w1 / 16, h1 / 70, w1 / 70, h1 / 20),
                 child: GestureDetector(
-                  onTap:()async{
+                  onTap: () async {
                     await fetchData();
                     setState(() {});
                   },
                   child: FoodCategories(
-                      ImagePath: 'Images/tiffin.png', Caption: 'Tiffin Services'),
+                      ImagePath: 'Images/tiffin.png',
+                      Caption: 'Tiffin Services'),
                 ),
               )
             ],
@@ -70,6 +65,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-

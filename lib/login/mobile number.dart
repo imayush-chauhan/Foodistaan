@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
                   textAlign: TextAlign.left,
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
-                    hintText: '  Mobile Number',
+                  hintText: 'Mobile Number',
                     hintStyle: TextStyle(
                       color: Colors.white,
                       fontSize: 14,

@@ -3,14 +3,19 @@
 
 import 'dart:ui';
 
+
 import 'package:flutter/material.dart';
 import 'package:foodistan/restuarant_screens/restaurant_delivery_review.dart';
 import 'package:foodistan/restuarant_screens/restaurant_main.dart';
 import 'package:foodistan/restuarant_screens/restuarant_delivery_menu.dart';
 import 'package:foodistan/widgets/bottom_navbar.dart';
 
+
 class RestaurantDelivery extends StatefulWidget {
   static String id = 'restaurant_delivery';
+  var items;
+  String vendor_id;
+  RestaurantDelivery({required this.items, required this.vendor_id});
 
   @override
   _RestaurantDeliveryState createState() => _RestaurantDeliveryState();
@@ -19,7 +24,7 @@ class RestaurantDelivery extends StatefulWidget {
 class _RestaurantDeliveryState extends State<RestaurantDelivery> {
   bool isMenuSelected = true;
   bool isReviewSelected = false;
-
+ 
   @override
   Widget build(BuildContext context) {
     var itemWidth = MediaQuery.of(context).size.width * 0.4;
@@ -63,13 +68,15 @@ class _RestaurantDeliveryState extends State<RestaurantDelivery> {
                     height: MediaQuery.of(context).size.height * 0.35,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16.0),
-                      child: Image.asset(
-                        'assets/images/dosa.png',
+                      child: Image.network(
+                        '${widget.items['FoodImage']}',
                         fit: BoxFit.cover,
                       ),
                     )),
                 Center(
-                  child: RestaurantMain(),
+                  child: RestaurantMain(
+                    restaurant_details: widget.items,
+                  ),
                 )
               ],
             ),
@@ -160,7 +167,7 @@ class _RestaurantDeliveryState extends State<RestaurantDelivery> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: isReviewSelected
                     ? RestuarantDeliveryReview()
-                    : RestuarantDeliveryMenu()),
+                    : RestuarantDeliveryMenu(vendor_id: widget.vendor_id,)),
           ],
         ),
       ),

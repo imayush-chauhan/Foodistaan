@@ -1,15 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodistan/auth/autentication.dart';
 import 'dart:math' as math;
+import 'package:foodistan/cart_screens/cart_functions.dart';
+import 'package:foodistan/MainScreenFolder/ListingsFile.dart';
 
 class MyFoodItemWidget extends StatefulWidget {
   static String id = 'my_food_widget';
-  const MyFoodItemWidget({Key? key}) : super(key: key);
+  var menu_item;
+  String vendor_id;
+  MyFoodItemWidget({required this.menu_item, required this.vendor_id});
 
   @override
   _MyFoodItemWidgetState createState() => _MyFoodItemWidgetState();
 }
 
 class _MyFoodItemWidgetState extends State<MyFoodItemWidget> {
+  String? user_number;
+
+  @override
+  void initState() {
+    super.initState();
+   user_number = AuthMethod().checkUserLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -25,7 +40,7 @@ class _MyFoodItemWidgetState extends State<MyFoodItemWidget> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.asset('assets/images/icecream.png'),
+                child: Image.network('${widget.menu_item['image']}'),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.15,
@@ -38,71 +53,72 @@ class _MyFoodItemWidgetState extends State<MyFoodItemWidget> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text("Tandoori Kurkure  ",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                )),
-                            Text("(Chef Special)",
+                          children: [
+                            Text('${widget.menu_item['title']}',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
                                 )),
                           ],
                         ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Image.asset('assets/images/green_sign.png')),
                       ],
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 10),
                       width: MediaQuery.of(context).size.width * 0.35,
-                      child: const Text(
-                          "Waffle with a twist of blueberry, and a punch of icecream",
+                      child: Text("${widget.menu_item['description']}",
                           style: TextStyle(fontSize: 8)),
                     ),
                     Container(
                       alignment: Alignment.center,
-                      child: Text("Earn upto 200 FS points",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 6,
-                          )),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text("Rs 200",
+                      child: Text("Rs ${widget.menu_item['price']}",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 8,
                           )),
                     ),
-                    Container(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              height: MediaQuery.of(context).size.height * 0.03,
-                              color: Colors.red,
-                              child: const TextButton(
-                                  onPressed: null,
-                                  child: Center(
-                                    child: Text(
-                                      "Add",
-                                      style: TextStyle(
-                                          fontSize: 8, color: Colors.white),
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ))
                   ],
                 ),
               ),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.55,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.12,
+                        height: MediaQuery.of(context).size.height * 0.03,
+                        color: Colors.red,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              String text = await CartFunctions().addItemToCart(
+                                  user_number,
+                                  widget.menu_item['id'],
+                                  widget.vendor_id);
+
+                              final snackBar = SnackBar(
+                                content: Text(text),
+                                action: SnackBarAction(
+                                  label: 'Undo',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                  },
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            },
+                            child: Center(
+                              child: Text(
+                                "Add",
+                                style:
+                                    TextStyle(fontSize: 8, color: Colors.white),
+                              ),
+                            )),
+                      ),
+                    ],
+                  ))
             ],
           ),
         ),

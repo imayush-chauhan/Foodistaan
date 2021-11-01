@@ -84,7 +84,7 @@ class _OrdersState extends State<Orders> {
                                         Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(15),
-                                            image: const DecorationImage(image: AssetImage('assets/food.png'),
+                                            image: const DecorationImage(image: AssetImage('assets/images/dosa.png'),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
