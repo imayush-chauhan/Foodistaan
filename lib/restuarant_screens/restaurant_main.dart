@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:foodistan/widgets/options.dart';
 
 class RestaurantMain extends StatefulWidget {
-  RestaurantMain({Key? key}) : super(key: key);
+  var restaurant_details;
+  RestaurantMain({required this.restaurant_details});
 
   @override
   _RestaurantMainState createState() => _RestaurantMainState();
@@ -18,17 +19,18 @@ class _RestaurantMainState extends State<RestaurantMain> {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
         color: Colors.white,
       ),
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.2,
       ),
-      width: MediaQuery.of(context).size.width * 0.95,
+      width: MediaQuery.of(context).size.width * 0.97,
       height: MediaQuery.of(context).size.height * 0.5,
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 margin: const EdgeInsets.only(left: 15),
@@ -38,21 +40,21 @@ class _RestaurantMainState extends State<RestaurantMain> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Anna Dosa Corner",
+                      "${widget.restaurant_details['Name']}",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
                     Text(
-                      "South Indian RestaurantDelivery",
+                      "${widget.restaurant_details['Cuisines']}",
                       style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.normal,
                           color: Colors.black),
                     ),
                     Text(
-                      "IUD, Rohini, Delhi",
+                      "${widget.restaurant_details['Address']}",
                       style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.normal,
@@ -65,8 +67,12 @@ class _RestaurantMainState extends State<RestaurantMain> {
                 width: MediaQuery.of(context).size.width * 0.2,
               ),
               Container(
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15))),
                   padding: const EdgeInsets.all(8),
-                  color: Colors.green,
                   width: MediaQuery.of(context).size.width * 0.25,
                   child: TextButton(
                       onPressed: null,
@@ -78,7 +84,7 @@ class _RestaurantMainState extends State<RestaurantMain> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "3.5 ",
+                                "${widget.restaurant_details['Stars']}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -103,11 +109,11 @@ class _RestaurantMainState extends State<RestaurantMain> {
             margin: EdgeInsets.only(top: 10),
             padding: EdgeInsets.all(8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -115,39 +121,49 @@ class _RestaurantMainState extends State<RestaurantMain> {
                         backgroundColor: Colors.red,
                         child: Icon(
                           Icons.attach_money,
-                          size: 15,
+                          size: 12,
                           color: Colors.white,
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Text(
-                        " Cost for Two 100",
+                        "Cost for Two ${widget.restaurant_details['Cost']}",
                         style: TextStyle(color: Colors.grey, fontSize: 10),
                       )
                     ],
                   ),
                 ),
+                // Container(
+                //   padding: EdgeInsets.all(10),
+                //   child: Row(
+                //     children: [
+                //       CircleAvatar(
+                //         maxRadius: 10,
+                //         backgroundColor: Colors.blue,
+                //         child: Icon(
+                //           Icons.bike_scooter,
+                //           size: 12,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //       widget.restaurant_details['delivery'] == true
+                //           ? Text(
+                //               "Delivery Available",
+                //               style: TextStyle(
+                //                   color: Colors.grey, fontSize: 10),
+                //             )
+                //           : Text(
+                //               "Delivery Not Available",
+                //               style: TextStyle(
+                //                   color: Colors.grey, fontSize: 10),
+                //             )
+                //     ],
+                //   ),
+                // ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        maxRadius: 10,
-                        backgroundColor: Colors.blue,
-                        child: Icon(
-                          Icons.bike_scooter,
-                          size: 15,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        " Delivery Available",
-                        style: TextStyle(color: Colors.grey, fontSize: 10),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -155,12 +171,15 @@ class _RestaurantMainState extends State<RestaurantMain> {
                         backgroundColor: Colors.green,
                         child: Icon(
                           Icons.table_chart,
-                          size: 15,
+                          size: 12,
                           color: Colors.white,
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Text(
-                        " Seating Available",
+                        "Seating Available",
                         style: TextStyle(color: Colors.grey, fontSize: 10),
                       )
                     ],
@@ -178,6 +197,7 @@ class _RestaurantMainState extends State<RestaurantMain> {
                 border: Border.all(color: Colors.grey, width: 1),
                 borderRadius: BorderRadius.circular(50)),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -204,10 +224,17 @@ class _RestaurantMainState extends State<RestaurantMain> {
                           size: 15,
                           color: Colors.grey,
                         ),
-                        Text(
-                          " Delivery",
-                          style: TextStyle(color: Colors.grey, fontSize: 10),
-                        )
+                        widget.restaurant_details["Delivery"] == true
+                            ? Text(
+                                " Delivery",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              )
+                            : Text(
+                                " No Delivery",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              )
                       ],
                     ),
                   ),
@@ -237,10 +264,13 @@ class _RestaurantMainState extends State<RestaurantMain> {
                           size: 15,
                           color: Colors.grey,
                         ),
-                        Text(
-                          " Pickup",
-                          style: TextStyle(color: Colors.grey, fontSize: 10),
-                        )
+                        widget.restaurant_details["Takeaway"]
+                            ? Text(
+                                " Pickup",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              )
+                            : SizedBox()
                       ],
                     ),
                   ),
@@ -301,7 +331,7 @@ class _RestaurantMainState extends State<RestaurantMain> {
                 MyOptionListView(
                     iconColor: Colors.red,
                     myIcon: Icons.thermostat,
-                    myText: "Temperature measured hourly"),
+                    myText: "Temperature measured"),
                 MyOptionListView(
                     iconColor: Colors.blue,
                     myIcon: Icons.masks,

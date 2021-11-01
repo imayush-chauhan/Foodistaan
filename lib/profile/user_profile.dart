@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodistan/profile/settings.dart';
 import 'profile_bookmarks.dart';
@@ -17,22 +18,23 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
   Map items = {
-    "name":"",
-    "email":"",
-    "number":"",
-    "pic":"",
+    "name": "",
+    "email": "",
+    "number": "",
+    "pic": "",
   };
   fetchData() async {
-    final CollectionReference profileData =
-    FirebaseFirestore.instance.collection('users');
+    final _firestore = FirebaseFirestore.instance;
+
+    
+   String? user_number;
+    if (FirebaseAuth.instance.currentUser!.phoneNumber != null) {
+      user_number = FirebaseAuth.instance.currentUser!.phoneNumber;
+    }
+    final CollectionReference profileData = _firestore.collection('users');
     try {
-      await profileData.doc("XEskamHBVRZWoZQUUkUE241iQi03").get().then((value) {
-        // querySnapshot.docs.forEach((element) {
-        //   items.add(element.data());
-        //   //print(items[0]['Name']);
-        // })
+      await profileData.doc(user_number).get().then((value) {
         setState(() {
           items["name"] = value.get("name");
           items["email"] = value.get("email");
@@ -41,8 +43,7 @@ class _UserProfileState extends State<UserProfile> {
         });
       }).whenComplete(() {
         print(items);
-        setState(() {
-        });
+        setState(() {});
       });
     } catch (e) {
       print(e.toString());
@@ -54,6 +55,7 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,19 +69,29 @@ class _UserProfileState extends State<UserProfile> {
           //   color: Colors.black,
           //   size: 27,
           // ),
-          leading: const IconButton(onPressed: null,
+          leading: const IconButton(
+            onPressed: null,
             icon: Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
               size: 25,
-            ),),
+            ),
+          ),
           actions: const [
-            IconButton(onPressed: null,
-              icon: Icon(Icons.search,
-                color: Colors.black,),),
-            IconButton(onPressed: null,
-              icon: Icon(Icons.share,
-                color: Colors.black,),),
+            IconButton(
+              onPressed: null,
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+            ),
+            IconButton(
+              onPressed: null,
+              icon: Icon(
+                Icons.share,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
         body: Stack(
@@ -110,11 +122,12 @@ class _UserProfileState extends State<UserProfile> {
                           Padding(
                             padding: const EdgeInsets.only(left: 30),
                             child: Text(
-                                  items["name"],
+                              items["name"],
                               style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                            ),),
+                                color: Colors.black,
+                                fontSize: 25,
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 5,
@@ -139,21 +152,25 @@ class _UserProfileState extends State<UserProfile> {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:  [
+                                  children: [
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
-                                    items["email"],style: TextStyle(
-                                      color: Colors.grey,
-                                    ),),
+                                      items["email"],
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 3,
                                     ),
                                     Text(
-                                    items["number"],style: TextStyle(
-                                      color: Colors.grey,
-                                    ),),
+                                      items["number"],
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -205,24 +222,31 @@ class _UserProfileState extends State<UserProfile> {
                       flex: 1,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) {
-                            return const Bookmarks();
-                          }),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) {
+                              return const Bookmarks();
+                            }),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
-                            Icon(Icons.bookmark_outline,
+                            Icon(
+                              Icons.bookmark_outline,
                               color: Colors.black,
                               size: 27,
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Bookmarks',style: TextStyle(
-                              color: Colors.black,
-                            ),),
+                            Text(
+                              'Bookmarks',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -231,24 +255,31 @@ class _UserProfileState extends State<UserProfile> {
                       flex: 1,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) {
-                            return const Offers();
-                          }),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) {
+                              return const Offers();
+                            }),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
-                            Icon(Icons.notifications_none_outlined,
+                            Icon(
+                              Icons.notifications_none_outlined,
                               color: Colors.black,
                               size: 27,
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Notifications',style: TextStyle(
-                              color: Colors.black,
-                            ),),
+                            Text(
+                              'Notifications',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -257,24 +288,31 @@ class _UserProfileState extends State<UserProfile> {
                       flex: 1,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) {
-                            return const ProfileSettings();
-                          }),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) {
+                              return const ProfileSettings();
+                            }),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
-                            Icon(Icons.settings,
+                            Icon(
+                              Icons.settings,
                               color: Colors.black,
                               size: 27,
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Settings',style: TextStyle(
-                              color: Colors.black,
-                            ),),
+                            Text(
+                              'Settings',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -283,24 +321,31 @@ class _UserProfileState extends State<UserProfile> {
                       flex: 1,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) {
-                            return const Payments();
-                          }),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) {
+                              return const Payments();
+                            }),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
-                            Icon(Icons.payment_outlined,
+                            Icon(
+                              Icons.payment_outlined,
                               color: Colors.black,
                               size: 27,
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Payments',style: TextStyle(
-                              color: Colors.black,
-                            ),),
+                            Text(
+                              'Payments',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -321,9 +366,12 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return const Orders();
-                    }),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return const Orders();
+                      }),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -340,13 +388,17 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Order History',style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),),
+                      Text(
+                        'Order History',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
                     ],
                   ),
-                ),const SizedBox(
+                ),
+                const SizedBox(
                   height: 5,
                 ),
                 const Padding(
@@ -360,9 +412,12 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return const Address();
-                    }),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return const Address();
+                      }),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -379,10 +434,13 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Saved Address Book',style: TextStyle(
+                      Text(
+                        'Saved Address Book',
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
-                      ),),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -400,9 +458,12 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return const Pro();
-                    }),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return const Pro();
+                      }),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -419,13 +480,17 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('About Foodistaan Pro',style: TextStyle(
+                      Text(
+                        'About Foodistaan Pro',
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
-                      ),),
+                        ),
+                      ),
                     ],
                   ),
-                ),const SizedBox(
+                ),
+                const SizedBox(
                   height: 5,
                 ),
                 const Padding(
@@ -439,9 +504,12 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return const Offers();
-                    }),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return const Offers();
+                      }),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -458,13 +526,17 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Offers & Deals of the Day',style: TextStyle(
+                      Text(
+                        'Offers & Deals of the Day',
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
-                      ),),
+                        ),
+                      ),
                     ],
                   ),
-                ),const SizedBox(
+                ),
+                const SizedBox(
                   height: 5,
                 ),
                 const Padding(
@@ -478,9 +550,12 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return const Help();
-                    }),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) {
+                        return const Help();
+                      }),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -497,13 +572,17 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Help',style: TextStyle(
+                      Text(
+                        'Help',
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
-                      ),),
+                        ),
+                      ),
                     ],
                   ),
-                ),const SizedBox(
+                ),
+                const SizedBox(
                   height: 5,
                 ),
                 const Padding(

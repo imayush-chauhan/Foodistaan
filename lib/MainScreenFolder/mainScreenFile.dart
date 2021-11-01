@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:foodistan/cart_screens/login_pay_cart_screen_main.dart';
 import 'package:foodistan/profile/foodistaan_pro.dart';
 import 'package:foodistan/profile/user_profile.dart';
 import 'AppBarFile.dart';
 import 'Test.dart';
 import 'HomeScreenFile.dart';
-
 
 class MainScreen extends StatefulWidget {
   @override
@@ -13,11 +14,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   @override
-  int currentIndex=0;
-  var Screens=[
+  int currentIndex = 0;
+  var Screens = [
     HomeScreen(), //HomeScreenFile
-    BufferScreen(),
+    CartScreenMainLogin(),
     BufferScreen(),
     UserProfile(),
   ];
@@ -27,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (index)=>setState(()=>currentIndex=index),
+        onTap: (index) => setState(() => currentIndex = index),
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: Color(0xff0E1829),
         selectedItemColor: Color(0xffFAC05E),
@@ -58,10 +60,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      appBar: currentIndex == 0 ? PreferredSize(
-        preferredSize: Size.fromHeight(h1 / 6.8), // here the desired height
-        child: MainScreenAppBar(),
-      ) : null,
+      appBar: currentIndex == 0
+          ? PreferredSize(
+              preferredSize:
+                  Size.fromHeight(h1 / 6.8), // here the desired height
+              child: MainScreenAppBar(),
+            )
+          : null,
       backgroundColor: Colors.white,
       body: Container(
           decoration: BoxDecoration(
